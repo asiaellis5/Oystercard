@@ -16,24 +16,40 @@ describe OysterCard do
 
 
   describe '#touch in' do
+    let(:old_street){"Old Street"}
+
     it 'touches in and return true' do
       subject.top_up(10)
-      subject.touch_in
+      subject.touch_in(old_street)
       expect(subject.in_use).to be true
     end
     it 'raises error when balance is below £1' do
-      expect{ subject.touch_in}.to raise_error "Insufficient funds, please top-up"
+      old_street = double("Old Street")
+      expect{ subject.touch_in(old_street) }.to raise_error "Insufficient funds, please top-up"
+    end
+    it 'remembers the entry station after touch in' do
+
+      # expect{ subject.touch_in(location) }.to eq location
     end
   end
   
   describe '#touch out' do
+    let(:old_street){ "Old Street" }
+    before(:each) { 
+      subject.top_up(10)
+      subject.touch_in(old_street)
+    }
+
     it 'touches out and return false' do
       subject.touch_out
-      expect(subject.in_use).to be false
+      expect(subject.in_journey?).to be false
     end
     it 'touches out and deducts by minimum' do
-      subject.top_up(5)
       expect {subject.touch_out }.to change{ subject.balance }.by(- OysterCard::MINIMUM_BALANCE)
+    end
+    it 'forgets the entry station on touch out by setting it to nil' do
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
     end
   end
 
