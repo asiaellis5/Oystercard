@@ -10,9 +10,7 @@ class OysterCard
   attr_accessor :in_use, :journey
 
   def initialize(balance = 0) 
-    # journey = Journey.new)
       @balance = balance
-      # @journey = nil
       @journey_history = []
   end
 
@@ -37,12 +35,7 @@ class OysterCard
   def record_journey
     journey = { :entry => @journey.entry_station, :exit => @journey.exit_station }
     @journey_history << journey
-    # @journey.entry_station = nil
   end
-
-  # def fare
-  #   @journey.complete? ? MIN_FARE : PENALTY
-  # end
 
 private
 
@@ -57,10 +50,6 @@ private
   def deduct(fare)
     @balance -= fare
   end
-
-  
-
-  # errors = {over_limit: raise "Balance will exceed maximum of £#{MAXIMUM_BALANCE}, please try a lower amount"}
 
 
 

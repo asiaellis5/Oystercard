@@ -45,11 +45,6 @@ describe OysterCard do
       subject.touch_out(king_cross)
       expect(subject.entry_station).to eq nil
     end
-
-    # it "returns a new journey when touch out" do 
-    #   subject.touch_out(king_cross)
-    #   expect(subject.journey).to eq journey
-    # end
   end
 
     describe '#record_journey' do
@@ -66,10 +61,6 @@ describe OysterCard do
       it 'remembers the history of all journeys' do
         expect(subject.journey_history).to include journey
       end
-      
-      # it 'remembers the history of all journeys' do
-      #   expect(subject.journeys[0]).to eq {:touch_in => old_street, :touch_out => king_cross}
-      # end
     end
 
     describe '#fare' do
