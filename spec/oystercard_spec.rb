@@ -63,7 +63,7 @@ describe OysterCard do
       end
     end
 
-    describe '#fare' do
+    describe '#fares' do
       let(:old_street){ "Old Street" }
       let(:king_cross){ "Kings Cross" }
       
@@ -72,6 +72,13 @@ describe OysterCard do
         subject.touch_in(old_street)
         subject.touch_out(king_cross)
         expect(subject.balance).to eq 19
+      end
+
+      it "returns a penalty fare when no exit station given" do
+        subject.top_up(20)
+        subject.touch_in(old_street)
+        subject.touch_out(nil)
+        expect(subject.balance).to eq 14
       end
     end
 

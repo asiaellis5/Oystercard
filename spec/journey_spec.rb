@@ -22,6 +22,10 @@ describe Journey do
       expect(subject.entry_station).to eq old_street
     end
 
+    context "given an entry station" do
+      let(:other_station) {double :other_station}
+    end
+
   end
 
   describe '#ends' do
