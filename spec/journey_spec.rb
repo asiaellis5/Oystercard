@@ -41,7 +41,7 @@ describe Journey do
   describe '#record_journey' do
     let(:old_street){ "Old Street" }
     let(:king_cross){ "Kings Cross" }
-    let(:journey){{:touch_in => old_street, :touch_out => king_cross}}
+    let(:journey){{:entry => old_street, :exit => king_cross}}
 
     before(:each) do
       subject.starts(old_street)
@@ -55,6 +55,20 @@ describe Journey do
     # it 'remembers the history of all journeys' do
     #   expect(subject.journeys[0]).to eq {:touch_in => old_street, :touch_out => king_cross}
     # end
+  end
+
+  describe '#fare' do
+    let(:old_street){ "Old Street" }
+    let(:king_cross){ "Kings Cross" }
+    
+      
+
+    it 'adds a minimum fare if journey complete' do
+      subject.starts(old_street)
+      subject.ends(king_cross)
+      p subject.complete?
+      expect(subject.fare).to eq 1
+    end
   end
 
 end  

@@ -45,6 +45,8 @@ describe OysterCard do
       subject.touch_out(king_cross)
       expect(subject.entry_station).to eq nil
     end
+
+
   end
 
   

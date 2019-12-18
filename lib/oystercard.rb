@@ -4,16 +4,17 @@ class OysterCard
     
   MAXIMUM_BALANCE = 90
   MINIMUM_BALANCE = 1
-  attr_reader :balance, :entry_station, :exit_station, :journeys
+  attr_reader :balance, :entry_station, :exit_station, :journeys, :places
   attr_accessor :in_use
 
   def initialize(balance = 0, journey = Journey.new)
       @balance = balance
       @journey = journey
+      @places = []
   end
 
   def top_up(amount)
-      @balance + amount < 90 ? @balance += amount : over_limit
+    @balance + amount < 90 ? @balance += amount : over_limit
   end
 
   def touch_in(station)
@@ -40,7 +41,7 @@ private
     @balance -= MINIMUM_BALANCE
   end
 
-  errors = {over_limit: raise "Balance will exceed maximum of £#{MAXIMUM_BALANCE}, please try a lower amount"}
+  # errors = {over_limit: raise "Balance will exceed maximum of £#{MAXIMUM_BALANCE}, please try a lower amount"}
 
 
 
