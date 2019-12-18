@@ -31,44 +31,19 @@ describe Journey do
       subject.starts(old_street)
     end
 
-    it 'touches out and return false' do
-      subject.ends(kings_cross)
-      expect(subject.in_journey?).to be false
-    end
-
-  end
-
-  describe '#record_journey' do
-    let(:old_street){ "Old Street" }
-    let(:king_cross){ "Kings Cross" }
-    let(:journey){{:entry => old_street, :exit => king_cross}}
-
-    before(:each) do
-      subject.starts(old_street)
-      subject.ends(king_cross)
-    end
-
-    it 'remembers the history of all journeys' do
-      expect(subject.journeys).to include journey
-    end
-    
-    # it 'remembers the history of all journeys' do
-    #   expect(subject.journeys[0]).to eq {:touch_in => old_street, :touch_out => king_cross}
-    # end
-  end
-
-  describe '#fare' do
-    let(:old_street){ "Old Street" }
-    let(:king_cross){ "Kings Cross" }
-    
+  describe "#complete?" do
+    let(:old_street) {"Old Street"}
+    let(:kings_cross) {"Kings Cross"}
       
-
-    it 'adds a minimum fare if journey complete' do
+    before (:each) do
       subject.starts(old_street)
-      subject.ends(king_cross)
-      p subject.complete?
-      expect(subject.fare).to eq 1
+    end
+
+    it "knows if a journey is complete?" do
+      subject.ends(kings_cross)
+      expect(subject).to be_complete
     end
   end
 
+  end
 end  
