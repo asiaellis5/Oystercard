@@ -80,6 +80,13 @@ describe OysterCard do
         subject.touch_out(nil)
         expect(subject.balance).to eq 14
       end
+      
+      it "returns a penalty fare when dont touch out" do
+        subject.top_up(20)
+        subject.touch_in(old_street)
+        subject.touch_in(king_cross)
+        expect(subject.balance).to eq 14
+      end
     end
 
 
