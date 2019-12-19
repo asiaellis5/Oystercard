@@ -4,30 +4,28 @@ class OysterCard
     
   MAXIMUM_BALANCE = 90
   MINIMUM_BALANCE = 1
-  MIN_FARE = 1
-  PENALTY = 6
   attr_reader :balance, :entry_station, :exit_station, :journey_history, :places
   attr_accessor :in_use, :journey
 
-  def initialize(balance = 0) 
+  def initialize(balance = 0, journey= Journey.new) 
       @balance = balance
       @journey_history = []
-      @journey = Journey.new
+      @journey = journey
   end
 
   def top_up(amount)
-    @balance + amount < 90 ? @balance += amount : over_limit
+    exceeds_max(amount) ? @balance += amount : over_limit
   end
 
   def touch_in(station)
-    deduct(PENALTY) if !@journey.entry_station.nil? && @journey.exit_station.nil?
+    deduct(Journey::PENALTY_CHARGE) if !@journey.entry_station.nil? && @journey.exit_station.nil?
     @journey.starts(station)
-    @balance < MINIMUM_BALANCE ? insufficient_funds : @in_use = true
+    insufficient_balance ? insufficient_funds : @in_use = true
   end
 
   def touch_out(station)
     @journey.ends(station)
-    @journey.complete? ? deduct(MIN_FARE): deduct(PENALTY)
+    @journey.complete? ? deduct(Journey::MIN_FARE): deduct(Journey::PENALTY_CHARGE)
     record_journey 
     @journey = Journey.new
     
@@ -37,12 +35,6 @@ class OysterCard
     journey = { :entry => @journey.entry_station, :exit => @journey.exit_station }
     @journey_history << journey
   end
-
-  # def status
-  #   if @journey_history[-1][:entry] == @journey.entry_station && @journey_history[-1][:exit] == nil
-  #     @journey.complete? == false
-  #   end 
-  # end
 
 private
 
@@ -54,8 +46,16 @@ private
     raise "Insufficient funds, please top-up"
   end  
 
-  def deduct(fare)
-    @balance -= fare
+  def deduct(charge)
+    @balance -= charge
+  end
+
+  def exceeds_max(amount)
+    @balance + amount < MAXIMUM_BALANCE
+  end
+
+  def insufficient_balance
+    @balance < MINIMUM_BALANCE
   end
 
 
