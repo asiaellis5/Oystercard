@@ -18,7 +18,7 @@ class Journey
         !!entry_station  # same as @entry_station != nil
     end
 
-    def starts(station)
+    def starts(station = nil)
         @entry_station = station
     end
 
