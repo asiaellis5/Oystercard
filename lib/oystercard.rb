@@ -12,6 +12,7 @@ class OysterCard
   def initialize(balance = 0) 
       @balance = balance
       @journey_history = []
+      @journey = Journey.new
   end
 
   def top_up(amount)
@@ -19,7 +20,7 @@ class OysterCard
   end
 
   def touch_in(station)
-    @journey = Journey.new
+    deduct(PENALTY) if !@journey.entry_station.nil? && @journey.exit_station.nil?
     @journey.starts(station)
     @balance < MINIMUM_BALANCE ? insufficient_funds : @in_use = true
   end
@@ -36,6 +37,12 @@ class OysterCard
     journey = { :entry => @journey.entry_station, :exit => @journey.exit_station }
     @journey_history << journey
   end
+
+  # def status
+  #   if @journey_history[-1][:entry] == @journey.entry_station && @journey_history[-1][:exit] == nil
+  #     @journey.complete? == false
+  #   end 
+  # end
 
 private
 
