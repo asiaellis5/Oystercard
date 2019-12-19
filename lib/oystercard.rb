@@ -25,10 +25,9 @@ class OysterCard
 
   def touch_out(station)
     @journey.ends(station)
-    @journey.complete? ? deduct(Journey::MIN_FARE): deduct(Journey::PENALTY_CHARGE)
+    deduct(@journey.fare)
     record_journey 
     @journey = Journey.new
-    
   end
 
   def record_journey

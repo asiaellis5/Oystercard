@@ -28,7 +28,7 @@ class Journey
 
     def complete?
         if @entry_station != nil && @exit_station != nil
-            return true
+         true
         end
     end
 

@@ -16,6 +16,10 @@ describe OysterCard do
   describe '#touch in' do
     let(:old_street){"Old Street"}
 
+    it "has no entry station before touch in" do
+      expect(subject.entry_station).to eq nil
+    end
+
     it 'touches in and return true' do
       subject.top_up(10)
       subject.touch_in(old_street)
