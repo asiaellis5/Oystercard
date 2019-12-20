@@ -11,7 +11,7 @@ class Journey
     def initialize
         @entry_station = nil
         @exit_station = nil
-        @journeys = []
+        # @journeys = []
     end
 
     def in_journey? 

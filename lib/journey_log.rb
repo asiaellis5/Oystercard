@@ -26,6 +26,7 @@ class JourneyLog
 
   def reset
     @journey_hist << @current_journey
+    journeys
     @current_journey = Journey.new
   end
 

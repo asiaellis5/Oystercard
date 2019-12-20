@@ -2,11 +2,11 @@ require 'journey'
 
 describe Journey do
   
-  describe 'initialization' do
-    it 'has empty list of journeys by default' do
-      expect(subject.journeys).to eq [] 
-    end
-  end
+  # describe 'initialization' do
+  #   it 'has empty list of journeys by default' do
+  #     expect(subject.journeys).to eq [] 
+  #   end
+  # end
 
   describe '#starts' do
     let(:old_street){"Old Street"}
