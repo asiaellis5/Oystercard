@@ -65,7 +65,7 @@ describe OysterCard do
       it "returns a penalty fare when no exit station given" do
         subject.top_up(20)
         subject.touch_in(old_street)
-        subject.touch_out(nil)
+        subject.touch_in(king_cross)
         expect(subject.balance).to eq 14
       end
       
