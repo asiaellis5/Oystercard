@@ -13,4 +13,13 @@ bundle install
 
 ## How to run
 
+Open IRB
 
+
+## How to run tests
+
+run:
+
+```
+rspec
+```
